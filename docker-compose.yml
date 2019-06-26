@@ -33,7 +33,7 @@ services:
       context: ./frontend
     volumes:
       - /app/node_modules
-      - ./client:/app
+      - ./frontend:/app
   worker:
     build:
       dockerfile: Dockerfile.dev
