@@ -1,0 +1,22 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t thaint/react-test -f ./frontend/Dockerfile.dev ./frontend
+
+scripts:
+  - docker run thaint/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t thaint/multi-frontend ./frontend
+  - docker build -t thaint/multi-nginx ./nginx
+  - docker build -t thaint/multi-server ./server
+  - docker build -t thaint/multi-worker ./worker
+  # Login into docker-hub
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images and push into docker-hub
+  - docker push thaint/multi-frontend
+  - docker push thaint/multi-nginx
+  - docker push thaint/multi-server
+  - docker push thaint/multi-worker
