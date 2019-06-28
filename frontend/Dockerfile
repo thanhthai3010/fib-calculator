@@ -8,5 +8,5 @@ RUN npm run build
 # Create new image
 FROM nginx
 EXPOSE 3000
-COPY ./nginx/default.cnf /etc/nginx/conf.d/default.cnf
+COPY ./nginx/default.cnf /etc/nginx/conf.d/default.conf
 COPY --from=builder /app/build /usr/share/nginx/html
