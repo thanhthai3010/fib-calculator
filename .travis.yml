@@ -5,7 +5,7 @@ services:
 before_install:
   - docker build -t thaint/react-test -f ./frontend/Dockerfile.dev ./frontend
 
-scripts:
+script:
   - docker run thaint/react-test npm test -- --coverage
 
 after_success:
